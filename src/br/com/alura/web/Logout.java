@@ -15,16 +15,12 @@ import org.apache.tomcat.util.http.parser.Cookie;
 
 import br.com.alura.gerenciador.Usuario;
 
-@WebServlet(urlPatterns="/logout")
-public class Logout extends HttpServlet{
+
+public class Logout implements Tarefa {
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-				
-		req.getSession().removeAttribute("usuario.logado");
+	public String executa(HttpServletRequest req, HttpServletResponse resp) {
+		req.getSession().removeAttribute("usuarioLogado");
 		
-		//resp.sendRedirect("paginas/logout.html");	
-		RequestDispatcher dispatcher= req.getRequestDispatcher("/WEB-INF/paginas/logout.html");
-		dispatcher.forward(req, resp);
+		return "/WEB-INF/paginas/logout.jsp";
 	}
 }
