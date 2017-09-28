@@ -8,8 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.http.parser.Cookie;
+
+import br.com.alura.gerenciador.Usuario;
 
 @WebServlet(urlPatterns="/logout")
 public class Logout extends HttpServlet{
@@ -17,17 +20,11 @@ public class Logout extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-		javax.servlet.http.Cookie cookie = new Cookies(req.getCookies()).buscaUsuarioLogado();
+		
+		req.getSession().removeAttribute("usuario.logado");
 		PrintWriter writer = resp.getWriter();
-
 		
-		if(cookie == null){
-			writer.println("<html><body>Usuario nao estava logado</body></html>");			
-			return;
-		}
 		
-		cookie.setMaxAge(0);
-		resp.addCookie(cookie);
 		writer.println("<html><body>Deslogado com sucesso</body></html>");
 	
 	}
